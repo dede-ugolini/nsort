@@ -29,7 +29,11 @@ int main(int argc, char *argv[]) {
     refresh();
     getch();
     draw_columns(columns, y, x, fps);
-    shell_sort(columns, x, y, fps);
+    if (config.reverse) {
+      shell_sort_reverse(columns, x, y, fps);
+    } else {
+      shell_sort(columns, x, y, fps);
+    }
     break;
   case SORT_INSERTION:
     algorithm = "Insertion sort";
