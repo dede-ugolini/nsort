@@ -276,10 +276,29 @@ void shell_sort(Column columns[], int size, int y, int fps) {
   refresh();
 }
 
-        columns[j] = columns[j - gap];
+void shell_sort_reverse(Column columns[], int size, int y, int fps) {
+  int interval = SECOND / fps;
+  for (int gap = size / 2; gap > 0; gap /= 2) {
+    for (int i = gap; i < size; i++) {
+      Column tmp = columns[i];
+      int j = i;
+
+      while (j >= gap && columns[j - gap].height < tmp.height) {
+        columns[j - gap].color = RED;
+        columns[j - gap].draw(columns[j - gap], y, j - gap);
+        columns[j].color = GREEN;
+        columns[j].draw(columns[j], y, j);
+        refresh();
+        usleep(interval);
+        swap_columns(&columns[j], &columns[j - gap]);
+        columns[j - gap].color = BLUE;
+        columns[j - gap].draw(columns[j - gap], y, j - gap);
+        columns[j].color = YELLOW;
+        columns[j].draw(columns[j], y, j);
+        refresh();
+        usleep(interval);
         j -= gap;
       }
-      columns[j] = tmp;
       refresh();
     }
   }
