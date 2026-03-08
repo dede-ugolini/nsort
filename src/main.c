@@ -60,6 +60,15 @@ int main(int argc, char *argv[]) {
     draw_columns(columns, y, x, fps);
     metrics = selection_sort(columns, x, y, fps);
     break;
+  case SORT_QUICK:
+    algorithm = "Quick sort";
+    mvprintw(0, 0, "Algorithm: %s, fps: %d, lines: %d, columns: %d", algorithm,
+             fps, y, x);
+    refresh();
+    getch();
+    draw_columns(columns, y, x, fps);
+    quick_sort(columns, 0, x - 1, y, fps);
+    break;
   case SORT_BUBBLE:
   default:
     algorithm = "Bubble sort";

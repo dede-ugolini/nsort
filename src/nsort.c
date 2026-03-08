@@ -70,17 +70,13 @@ Config parse_command_line(int argc, char **argv) {
   long fps;
   Config config;
   struct option long_options[] = {
-      {"help", no_argument, 0, 'h'},
-      {"bubble", no_argument, 0, 'b'},
-      {"insertion", no_argument, 0, 'i'},
-      {"bogo", no_argument, 0, 'g'},
-      {"merge", no_argument, 0, 'm'},
-      {"selection", no_argument, 0, 's'},
-      {"shell", no_argument, 0, 'l'},
-      {"fps", required_argument, 0, 'f'},
-      {0, 0, 0, 0},
+      {"help", no_argument, 0, 'h'},      {"bubble", no_argument, 0, 'b'},
+      {"insertion", no_argument, 0, 'i'}, {"bogo", no_argument, 0, 'g'},
+      {"merge", no_argument, 0, 'm'},     {"selection", no_argument, 0, 's'},
+      {"shell", no_argument, 0, 'l'},     {"quick", no_argument, 0, 'q'},
+      {"fps", required_argument, 0, 'f'}, {0, 0, 0, 0},
   };
-  while ((opt = getopt_long(argc, argv, "hbigslf:", long_options, NULL)) !=
+  while ((opt = getopt_long(argc, argv, "hbigslqf:", long_options, NULL)) !=
          -1) {
     switch (opt) {
     case 'h':
@@ -103,6 +99,9 @@ Config parse_command_line(int argc, char **argv) {
       break;
     case 'l':
       config.algorithm = SORT_SHELL;
+      break;
+    case 'q':
+      config.algorithm = SORT_QUICK;
       break;
     case 'f':
       fps = strtol(optarg, &end, 10);

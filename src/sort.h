@@ -15,4 +15,6 @@ void bogo_sort(Column columns[], int size, int y, int fps);
 
 void shell_sort(Column columns[], int size, int y, int fps);
 
+void quick_sort(Column columns[], int low, int size, int y, int fps);
+
 #endif

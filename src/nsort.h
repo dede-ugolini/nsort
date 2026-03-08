@@ -13,6 +13,7 @@ typedef enum {
   SORT_MERGE,
   SORT_SELECTION,
   SORT_SHELL,
+  SORT_QUICK,
 } Sort_Algorithm;
 
 typedef struct {
