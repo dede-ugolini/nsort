@@ -91,6 +91,8 @@ Metrics bubble_sort(Column columns[], int size, int y, int fps) {
   return metrics;
 }
 
+// FIX: No canto inferior esquerdo, as vezes sobra uma rebarba que não foi
+// ordenada corretamente
 Metrics insertion_sort(Column columns[], int size, int y, int fps) {
   struct timespec start, end;
   clock_gettime(CLOCK_MONOTONIC, &start);
