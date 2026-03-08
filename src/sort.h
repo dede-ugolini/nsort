@@ -5,6 +5,8 @@
 
 Metrics selection_sort(Column columns[], int size, int y, int fps);
 
+Metrics selection_sort_reverse(Column columns[], int size, int y, int fps);
+
 Metrics bubble_sort(Column columns[], int size, int y, int fps);
 
 Metrics bubble_sort_reverse(Column columns[], int size, int y, int fps);
