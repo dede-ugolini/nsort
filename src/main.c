@@ -42,7 +42,11 @@ int main(int argc, char *argv[]) {
     refresh();
     getch();
     draw_columns(columns, y, x, fps);
-    metrics = insertion_sort(columns, x, y, fps);
+    if (config.reverse) {
+      metrics = insertion_sort_reverse(columns, x, y, fps);
+    } else {
+      metrics = insertion_sort(columns, x, y, fps);
+    }
     break;
   case SORT_BOGO:
     algorithm = "Bogo sort";

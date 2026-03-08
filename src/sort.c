@@ -216,6 +216,7 @@ Metrics insertion_sort(Column columns[], int size, int y, int fps) {
   return metrics;
 }
 
+// FIX: Apos ordenar, programa cracheia com seg fault
 Metrics insertion_sort_reverse(Column columns[], int size, int y, int fps) {
   struct timespec start, end;
   clock_gettime(CLOCK_MONOTONIC, &start);
