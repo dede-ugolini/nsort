@@ -54,6 +54,8 @@ static void help(int status) {
   printf("  -h, --help           Show this help\n");
   printf("  -b, --bubble         Use bubble sort (default)\n");
   printf("  -i, --insertion      Use insertion sort\n");
+  printf("  -g, --bogo           Use bogo sort\n");
+  printf("  -s, --selection      Use selection sort\n");
   printf("  -f, --fps <number>   Frames per second (default 60)\n");
   exit(status);
 }
@@ -74,7 +76,7 @@ Config parse_command_line(int argc, char **argv) {
       {"fps", required_argument, 0, 'f'},
       {0, 0, 0, 0},
   };
-  while ((opt = getopt_long(argc, argv, "hbif:", long_options, NULL)) != -1) {
+  while ((opt = getopt_long(argc, argv, "hbigsf:", long_options, NULL)) != -1) {
     switch (opt) {
     case 'h':
       help(EXIT_SUCCESS);

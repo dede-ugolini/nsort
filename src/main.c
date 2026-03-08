@@ -34,6 +34,13 @@ int main(int argc, char *argv[]) {
     metrics = insertion_sort(columns, x, y, fps);
     break;
   case SORT_BOGO:
+    algorithm = "Bogo sort";
+    mvprintw(0, 0, "Algorithm: %s, fps: %d, lines: %d, columns: %d", algorithm,
+             fps, y, x);
+    refresh();
+    getch();
+    draw_columns(columns, y, x, fps);
+    bogo_sort(columns, x, y, fps);
     break;
   case SORT_MERGE:
     break;

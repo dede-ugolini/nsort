@@ -2,6 +2,7 @@
 #include "nsort.h"
 
 #include <ncurses.h>
+#include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -127,4 +128,35 @@ Metrics insertion_sort(Column columns[], int size, int y, int fps) {
       elapsed,
   };
   return metrics;
+}
+
+static bool is_sorted(Column columns[], int size) {
+  while (--size >= 1) {
+    if (columns[size].height < columns[size - 1].height) {
+      return false;
+    }
+  }
+  return true;
+}
+
+static void shuffle(Column columns[], int size, int y, int fps) {
+  int i, tmp, r;
+  int interval = SECOND / fps;
+  for (i = 0; i < size; i++) {
+    tmp = columns[i].height;
+    r = rand() % size;
+    columns[i].height = columns[r].height;
+    columns[r].height = tmp;
+    columns[r].color = RED;
+    columns[r].draw(columns[r], y, r);
+    refresh();
+    usleep(interval);
+    refresh();
+  }
+}
+
+void bogo_sort(Column columns[], int size, int y, int fps) {
+  while (!is_sorted(columns, size)) {
+    shuffle(columns, size, y, fps);
+  }
 }
