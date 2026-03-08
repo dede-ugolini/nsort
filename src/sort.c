@@ -143,6 +143,41 @@ Metrics bubble_sort(Column columns[], int size, int y, int fps) {
   return metrics;
 }
 
+Metrics bubble_sort_reverse(Column columns[], int size, int y, int fps) {
+  struct timespec start, end;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+  long long comparasions = 0;
+  long long swaps = 0;
+  int interval = SECOND / fps;
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size - i - 1; j++) {
+      columns[j].color = GREEN;
+      columns[j].draw(columns[j], y, j);
+      refresh();
+      usleep(interval);
+      if (columns[j].height < columns[j + 1].height) {
+        swap_columns(&columns[j], &columns[j + 1]);
+        ++swaps;
+      }
+      ++comparasions;
+      columns[j].color = WHITE;
+      columns[j].draw(columns[j], y, j);
+      refresh();
+    }
+    columns[size - i - 1].color = RED;
+    columns[size - i - 1].draw(columns[size - i - 1], y, size - i - 1);
+  }
+  clock_gettime(CLOCK_MONOTONIC, &end);
+  double elapsed =
+      (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+  Metrics metrics = {
+      comparasions,
+      swaps,
+      elapsed,
+  };
+  return metrics;
+}
+
 // FIX: No canto inferior esquerdo, as vezes sobra uma rebarba que não foi
 // ordenada corretamente
 Metrics insertion_sort(Column columns[], int size, int y, int fps) {
@@ -210,4 +245,36 @@ void bogo_sort(Column columns[], int size, int y, int fps) {
   while (!is_sorted(columns, size)) {
     shuffle(columns, size, y, fps);
   }
+}
+
+void shell_sort(Column columns[], int size, int y, int fps) {
+  int interval = SECOND / fps;
+  for (int gap = size / 2; gap > 0; gap /= 2) {
+    for (int i = gap; i < size; i++) {
+      Column tmp = columns[i];
+      int j = i;
+
+      while (j >= gap && columns[j - gap].height > tmp.height) {
+        columns[j - gap].color = RED;
+        columns[j - gap].draw(columns[j - gap], y, j - gap);
+
+        columns[j].color = GREEN;
+        columns[j].draw(columns[j], y, j);
+        refresh();
+        usleep(interval);
+        /*         columns[j - gap].color = GREEN;
+                columns[j - gap].draw(columns[j], y, j - gap);
+                columns[j].color = GREEN;
+                columns[j].draw(columns[j], y, j);
+                refresh();
+                usleep(interval); */
+
+        columns[j] = columns[j - gap];
+        j -= gap;
+      }
+      columns[j] = tmp;
+      refresh();
+    }
+  }
+  refresh();
 }
