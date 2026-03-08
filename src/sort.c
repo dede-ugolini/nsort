@@ -354,3 +354,53 @@ void quick_sort(Column columns[], int low, int size, int y, int fps) {
   quick_sort(columns, w + 1, size, y, fps);
   return;
 }
+
+void quick_sort_reverse(Column columns[], int low, int size, int y, int fps) {
+  int interval = SECOND / fps;
+  if (low > size) {
+    return;
+  }
+  columns[size].color = BLUE;
+  columns[size].draw(columns[size], y, size);
+  int w = low - 1;
+  int j = low;
+
+  while (j != size) {
+    columns[j].color = YELLOW;
+    columns[j].draw(columns[j], y, j);
+
+    columns[w + 1].color = RED;
+    columns[w + 1].draw(columns[w + 1], y, w + 1);
+    mvprintw(0, 0, "Quick Sort");
+    refresh();
+    usleep(interval);
+    columns[j].color = WHITE;
+    columns[j].draw(columns[j], y, j);
+
+    if (columns[j].height > columns[size].height) {
+      w++;
+      columns[w].color = WHITE;
+      columns[w].draw(columns[w], y, w);
+      swap_columns(&columns[w], &columns[j]);
+      columns[w].color = WHITE;
+      columns[w].draw(columns[w], y, w);
+      columns[j].draw(columns[j], y, j);
+    }
+    j++;
+  }
+  w++;
+  swap_columns(&columns[w], &columns[size]);
+
+  columns[size].color = WHITE;
+  columns[size].draw(columns[size], y, size);
+  columns[w].color = GREEN;
+  columns[w].draw(columns[w], y, w);
+
+  mvprintw(0, 0, "Quick Sort");
+  refresh();
+  usleep(interval);
+
+  quick_sort(columns, low, w - 1, y, fps);
+  quick_sort(columns, w + 1, size, y, fps);
+  return;
+}

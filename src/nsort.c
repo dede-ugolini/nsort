@@ -60,6 +60,7 @@ static void help(int status) {
   printf("  -g, --bogo           Use bogo sort\n");
   printf("  -s, --selection      Use selection sort\n");
   printf("  -l, --shell          Use shell sort\n");
+  printf("  -q, --quick          Use quick sort\n");
   printf("  -f, --fps <number>   Frames per second (default 60)\n");
   exit(status);
 }
