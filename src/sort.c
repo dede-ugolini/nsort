@@ -216,6 +216,42 @@ Metrics insertion_sort(Column columns[], int size, int y, int fps) {
   return metrics;
 }
 
+Metrics insertion_sort_reverse(Column columns[], int size, int y, int fps) {
+  struct timespec start, end;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+  long long comparasions = 0;
+  long long swaps = 0;
+  int i, j;
+  int interval = SECOND / fps;
+  for (i = 0; i < size; i++) {
+    ++comparasions;
+    for (j = i + 1; j > 0 && columns[j].height > columns[j - 1].height; j--) {
+      columns[j].color = YELLOW;
+      columns[j - 1].color = GREEN;
+      columns[j].draw(columns[j], y, j);
+      columns[j - 1].draw(columns[j - 1], y, j - 1);
+      swap_columns(&columns[j], &columns[j - 1]);
+      ++swaps;
+      mvprintw(0, 0, "Insertion Sort");
+      usleep(interval);
+      columns[j].color = GREEN;
+      columns[j - 1].color = GREEN;
+      columns[j].draw(columns[j], y, j);
+      columns[j - 1].draw(columns[j], y, j - 1);
+      refresh();
+    }
+  }
+  clock_gettime(CLOCK_MONOTONIC, &end);
+  double elapsed =
+      (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+  Metrics metrics = {
+      comparasions,
+      swaps,
+      elapsed,
+  };
+  return metrics;
+}
+
 static bool is_sorted(Column columns[], int size) {
   while (--size >= 1) {
     if (columns[size].height < columns[size - 1].height) {
