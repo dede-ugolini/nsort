@@ -67,7 +67,11 @@ int main(int argc, char *argv[]) {
     refresh();
     getch();
     draw_columns(columns, y, x, fps);
-    quick_sort(columns, 0, x - 1, y, fps);
+    if (config.reverse) {
+      quick_sort_reverse(columns, 0, x - 1, y, fps);
+    } else {
+      quick_sort(columns, 0, x - 1, y, fps);
+    }
     break;
   case SORT_BUBBLE:
     algorithm = "Bubble sort";
