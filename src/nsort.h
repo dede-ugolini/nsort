@@ -1,6 +1,8 @@
 #ifndef NSORT_H
 #define NSORT_H
 
+#include <stdbool.h>
+
 #define progname "nsort"
 #define SECOND 1000000
 
@@ -19,6 +21,7 @@ typedef enum {
 typedef struct {
   int fps;
   Sort_Algorithm algorithm;
+  bool reverse;
 } Config;
 
 typedef struct {

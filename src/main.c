@@ -70,7 +70,6 @@ int main(int argc, char *argv[]) {
     quick_sort(columns, 0, x - 1, y, fps);
     break;
   case SORT_BUBBLE:
-  default:
     algorithm = "Bubble sort";
     mvprintw(0, 0, "Algorithm: %s, fps: %d, lines: %d, columns: %d", algorithm,
              fps, y, x);
@@ -78,7 +77,11 @@ int main(int argc, char *argv[]) {
     refresh();
     getch();
     draw_columns(columns, y, x, fps);
-    metrics = bubble_sort(columns, x, y, fps);
+    if (config.reverse) {
+      bubble_sort_reverse(columns, x, y, fps);
+    } else {
+      metrics = bubble_sort(columns, x, y, fps);
+    }
     break;
   }
   refresh();

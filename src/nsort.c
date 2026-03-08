@@ -61,6 +61,8 @@ static void help(int status) {
   printf("  -s, --selection      Use selection sort\n");
   printf("  -l, --shell          Use shell sort\n");
   printf("  -q, --quick          Use quick sort\n");
+  printf(
+      "  -r, --reverse        Use algorithms sort reverse (default false)\n");
   printf("  -f, --fps <number>   Frames per second (default 60)\n");
   exit(status);
 }
@@ -69,15 +71,21 @@ Config parse_command_line(int argc, char **argv) {
   int opt;
   char *end;
   long fps;
-  Config config;
+  Config config = {60, SORT_BUBBLE, false};
   struct option long_options[] = {
-      {"help", no_argument, 0, 'h'},      {"bubble", no_argument, 0, 'b'},
-      {"insertion", no_argument, 0, 'i'}, {"bogo", no_argument, 0, 'g'},
-      {"merge", no_argument, 0, 'm'},     {"selection", no_argument, 0, 's'},
-      {"shell", no_argument, 0, 'l'},     {"quick", no_argument, 0, 'q'},
-      {"fps", required_argument, 0, 'f'}, {0, 0, 0, 0},
+      {"help", no_argument, 0, 'h'},
+      {"bubble", no_argument, 0, 'b'},
+      {"insertion", no_argument, 0, 'i'},
+      {"bogo", no_argument, 0, 'g'},
+      {"merge", no_argument, 0, 'm'},
+      {"selection", no_argument, 0, 's'},
+      {"shell", no_argument, 0, 'l'},
+      {"quick", no_argument, 0, 'q'},
+      {"reverse", no_argument, 0, 'r'},
+      {"fps", required_argument, 0, 'f'},
+      {0, 0, 0, 0},
   };
-  while ((opt = getopt_long(argc, argv, "hbigslqf:", long_options, NULL)) !=
+  while ((opt = getopt_long(argc, argv, "hbigmslqrf:", long_options, NULL)) !=
          -1) {
     switch (opt) {
     case 'h':
@@ -104,6 +112,9 @@ Config parse_command_line(int argc, char **argv) {
     case 'q':
       config.algorithm = SORT_QUICK;
       break;
+    case 'r':
+      config.reverse = true;
+      break;
     case 'f':
       fps = strtol(optarg, &end, 10);
       if (*end != '\0' || fps <= 0) {
@@ -111,9 +122,6 @@ Config parse_command_line(int argc, char **argv) {
         exit(EXIT_FAILURE);
       }
       config.fps = (int)fps;
-      break;
-    default:
-      help(EXIT_FAILURE);
       break;
     }
   }
