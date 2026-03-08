@@ -23,6 +23,13 @@ int main(int argc, char *argv[]) {
   Metrics metrics;
   switch (config.algorithm) {
   case SORT_SHELL:
+    algorithm = "Shell sort";
+    mvprintw(0, 0, "Algorithm: %s, fps: %d, lines: %d, columns: %d", algorithm,
+             fps, y, x);
+    refresh();
+    getch();
+    draw_columns(columns, y, x, fps);
+    shell_sort(columns, x, y, fps);
     break;
   case SORT_INSERTION:
     algorithm = "Insertion sort";
@@ -66,6 +73,7 @@ int main(int argc, char *argv[]) {
     break;
   }
   refresh();
+  mvprintw(0, 0, "%s", algorithm);
   mvprintw(1, 0, "Done!");
   mvprintw(2, 0, "Swaps: %lld, Comparasions: %lld, Time: %f, size of array: %d",
            metrics.swaps, metrics.comparasions, metrics.time, x);

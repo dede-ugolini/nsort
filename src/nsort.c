@@ -46,6 +46,9 @@ void init_ncurses() {
   init_pair(RED, COLOR_RED, COLOR_RED);
   init_pair(YELLOW, COLOR_YELLOW, COLOR_YELLOW);
   init_pair(GREEN, COLOR_GREEN, COLOR_GREEN);
+  init_pair(BLUE, COLOR_BLUE, COLOR_BLUE);
+  init_pair(CYAN, COLOR_CYAN, COLOR_CYAN);
+  init_pair(MAGENTA, COLOR_MAGENTA, COLOR_MAGENTA);
 }
 
 static void help(int status) {
@@ -56,6 +59,7 @@ static void help(int status) {
   printf("  -i, --insertion      Use insertion sort\n");
   printf("  -g, --bogo           Use bogo sort\n");
   printf("  -s, --selection      Use selection sort\n");
+  printf("  -l, --shell          Use shell sort\n");
   printf("  -f, --fps <number>   Frames per second (default 60)\n");
   exit(status);
 }
@@ -76,7 +80,8 @@ Config parse_command_line(int argc, char **argv) {
       {"fps", required_argument, 0, 'f'},
       {0, 0, 0, 0},
   };
-  while ((opt = getopt_long(argc, argv, "hbigsf:", long_options, NULL)) != -1) {
+  while ((opt = getopt_long(argc, argv, "hbigslf:", long_options, NULL)) !=
+         -1) {
     switch (opt) {
     case 'h':
       help(EXIT_SUCCESS);

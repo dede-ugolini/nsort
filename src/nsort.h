@@ -4,13 +4,7 @@
 #define progname "nsort"
 #define SECOND 1000000
 
-enum Colors {
-  BLACK,
-  WHITE,
-  RED,
-  YELLOW,
-  GREEN,
-};
+enum Colors { BLACK, WHITE, RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA };
 
 typedef enum {
   SORT_BUBBLE,

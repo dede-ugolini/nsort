@@ -257,17 +257,24 @@ void shell_sort(Column columns[], int size, int y, int fps) {
       while (j >= gap && columns[j - gap].height > tmp.height) {
         columns[j - gap].color = RED;
         columns[j - gap].draw(columns[j - gap], y, j - gap);
-
         columns[j].color = GREEN;
         columns[j].draw(columns[j], y, j);
         refresh();
         usleep(interval);
-        /*         columns[j - gap].color = GREEN;
-                columns[j - gap].draw(columns[j], y, j - gap);
-                columns[j].color = GREEN;
-                columns[j].draw(columns[j], y, j);
-                refresh();
-                usleep(interval); */
+        swap_columns(&columns[j], &columns[j - gap]);
+        columns[j - gap].color = BLUE;
+        columns[j - gap].draw(columns[j - gap], y, j - gap);
+        columns[j].color = YELLOW;
+        columns[j].draw(columns[j], y, j);
+        refresh();
+        usleep(interval);
+        j -= gap;
+      }
+      refresh();
+    }
+  }
+  refresh();
+}
 
         columns[j] = columns[j - gap];
         j -= gap;
