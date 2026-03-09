@@ -58,6 +58,13 @@ int main(int argc, char *argv[]) {
     bogo_sort(columns, x, y, fps);
     break;
   case SORT_MERGE:
+    algorithm = "Merge sort";
+    mvprintw(0, 0, "Algorithm: %s, fps: %d, lines: %d, columns: %d", algorithm,
+             fps, y, x);
+    refresh();
+    getch();
+    draw_columns(columns, y, x, fps);
+    merge_sort(columns, 0, y, x - 1, fps);
     break;
   case SORT_SELECTION:
     algorithm = "Selection sort";

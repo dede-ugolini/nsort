@@ -25,4 +25,6 @@ void quick_sort(Column columns[], int low, int size, int y, int fps);
 
 void quick_sort_reverse(Column columns[], int low, int size, int y, int fps);
 
+void merge_sort(Column columns[], int low, int y, int right, int fps);
+
 #endif
