@@ -513,3 +513,75 @@ void merge_sort(Column columns[], int left, int y, int right, int fps) {
     merge(columns, left, middle, right, y, fps);
   }
 }
+
+static void merge_reverse(Column columns[], int start, int middle, int end,
+                          int y, int fps) {
+  int interval = SECOND / fps;
+  int i, j, k;
+  int n1 = middle - start + 1;
+  int n2 = end - middle;
+
+  int L[n1], R[n2];
+
+  // Inicializando array L
+  for (i = 0; i < n1; i++) {
+    L[i] = columns[start + i].height;
+  }
+
+  // Inicializando array R
+  for (j = 0; j < n2; j++) {
+    R[j] = columns[middle + 1 + j].height;
+  }
+
+  i = 0;
+  j = 0;
+  k = start;
+
+  while (i < n1 && j < n2) {
+    if (L[i] >= R[j]) {
+      columns[k].height = L[i];
+      columns[k].color = GREEN;
+      columns[k].draw(columns[k], y, k);
+      usleep(interval);
+      i++;
+    } else {
+      columns[k].height = R[j];
+      columns[k].color = GREEN;
+      columns[k].draw(columns[k], y, k);
+      usleep(interval);
+      j++;
+    }
+    k++;
+  }
+  while (i < n1) {
+    columns[k].height = L[i];
+    columns[k].color = GREEN;
+    columns[k].draw(columns[k], y, k);
+    usleep(interval);
+    i++;
+    k++;
+  }
+
+  while (j < n2) {
+    columns[k].height = R[j];
+    columns[k].color = GREEN;
+    columns[k].draw(columns[k], y, k);
+    usleep(interval);
+    j++;
+    k++;
+  }
+}
+
+void merge_sort_reverse(Column columns[], int left, int y, int right, int fps) {
+  int interval = SECOND / fps;
+  if (left < right) {
+    int middle = left + (right - left) / 2;
+    columns[middle].color = RED;
+    columns[middle].draw(columns[middle], y, middle);
+    usleep(interval);
+    merge_sort_reverse(columns, left, y, middle, fps);
+    merge_sort_reverse(columns, middle + 1, y, right, fps);
+
+    merge_reverse(columns, left, middle, right, y, fps);
+  }
+}

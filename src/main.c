@@ -64,7 +64,11 @@ int main(int argc, char *argv[]) {
     refresh();
     getch();
     draw_columns(columns, y, x, fps);
-    merge_sort(columns, 0, y, x - 1, fps);
+    if (config.reverse) {
+      merge_sort_reverse(columns, 0, y, x - 1, fps);
+    } else {
+      merge_sort(columns, 0, y, x - 1, fps);
+    }
     break;
   case SORT_SELECTION:
     algorithm = "Selection sort";
