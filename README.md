@@ -7,3 +7,7 @@
 ## Merge Sort
 
 ![](media/merge.gif)
+
+## Selection Sort
+
+![](media/selection.gif)
