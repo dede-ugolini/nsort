@@ -11,3 +11,7 @@
 ## Selection Sort
 
 ![](media/selection.gif)
+
+## Shell Sort
+
+![](media/shell.gif)

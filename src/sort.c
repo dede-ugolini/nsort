@@ -292,6 +292,7 @@ void shell_sort(Column columns[], int size, int y, int fps) {
       int j = i;
 
       while (j >= gap && columns[j - gap].height > tmp.height) {
+        mvprintw(0, 0, "Shell Sort");
         columns[j - gap].color = RED;
         columns[j - gap].draw(columns[j - gap], y, j - gap);
         columns[j].color = GREEN;
