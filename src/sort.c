@@ -116,7 +116,8 @@ Metrics bubble_sort(Column columns[], int size, int y, int fps) {
   int interval = SECOND / fps;
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size - i - 1; j++) {
-      columns[j].color = GREEN;
+      mvprintw(0, 0, "Bubble Sort");
+      columns[j].color = RED;
       columns[j].draw(columns[j], y, j);
       refresh();
       usleep(interval);
@@ -129,7 +130,7 @@ Metrics bubble_sort(Column columns[], int size, int y, int fps) {
       columns[j].draw(columns[j], y, j);
       refresh();
     }
-    columns[size - i - 1].color = RED;
+    columns[size - i - 1].color = GREEN;
     columns[size - i - 1].draw(columns[size - i - 1], y, size - i - 1);
   }
   clock_gettime(CLOCK_MONOTONIC, &end);

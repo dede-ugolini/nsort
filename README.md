@@ -15,3 +15,7 @@
 ## Shell Sort
 
 ![](media/shell.gif)
+
+## Bubble Sort
+
+![](media/bubble.gif)
