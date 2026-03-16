@@ -191,7 +191,7 @@ Metrics insertion_sort(Column columns[], int size, int y, int fps) {
   for (i = 0; i < size; i++) {
     ++comparasions;
     for (j = i + 1; j > 0 && columns[j].height < columns[j - 1].height; j--) {
-      columns[j].color = YELLOW;
+      columns[j].color = RED;
       columns[j - 1].color = GREEN;
       columns[j].draw(columns[j], y, j);
       columns[j - 1].draw(columns[j - 1], y, j - 1);
